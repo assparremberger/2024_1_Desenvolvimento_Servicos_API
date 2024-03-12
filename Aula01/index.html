@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="minhaDiv" >
+        Oi
+    </div>
+    <button onclick="alterar()">Alterar</button>
+
+    <script>
+        var mDiv = document.getElementById("minhaDiv");
+        var conteudo = mDiv.innerHTML + " galerinha! <hr>";
+        mDiv.innerHTML = conteudo;
+
+        function alterar(){
+            mDiv.style.background = "#f00";
+            mDiv.style.width = "50%";
+            mDiv.setAttribute( "align" , "center");
+        }
+
+        document.write("Bom dia <i>Pessoal</i>");
+        // window.alert("Bem-vindos ao novo semestre!");
+        alert("Bem-vindos ao novo semestre!");
+        console.log("Escrevendo no console!");
+
+        
+
+        
+    </script>
+    
+</body>
+</html>
