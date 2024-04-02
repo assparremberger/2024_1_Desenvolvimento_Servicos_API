@@ -1,0 +1,13 @@
+{
+    "nome" : "Maria" ,
+    "idade" : 25 ,
+    "altura" : 1.75 ,
+    "anoFormacoes" : [2006, 2013, 2017] ,
+    "graus" : [ "Técnico" , "Graduação" , "Mestrado"],
+    "endereco" : null ,
+    "temFilhos" : true ,
+    "filhos" : [ 
+        { "nome" : "Pedro" , "idade" : 5 } ,
+        { "nome" : "Júlia" , "idade" : 7 }
+    ]
+}
