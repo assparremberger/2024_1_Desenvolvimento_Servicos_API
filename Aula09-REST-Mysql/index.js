@@ -43,7 +43,7 @@ server.get( '/categoria/:idCategoria' , (req, res, next) => {
     .then( (dados) => {
         if( !dados || dados == "" ){
             return res.send(
-                new errors.BadRequestError('Produto não encontrado')
+                new errors.BadRequestError('Categoria não encontrada')
             )
         }
         res.send( dados )
@@ -66,7 +66,7 @@ server.put( '/categoria/:idCategoria' , (req, res, next) => {
     .then( (dados) => {
         if( !dados ){
             return res.send(
-                new errors.BadRequestError('Produto não encontrado')
+                new errors.BadRequestError('Categoria não encontrada')
             )
         }
         res.send( "Produto Atualizado" )
@@ -81,7 +81,63 @@ server.del( '/categoria/:idCategoria' , (req, res, next) => {
     .then( (dados) => {
         if( !dados ){
             return res.send(
+                new errors.BadRequestError('Categoria não encontrada')
+            )
+        }
+        res.send( "Produto Excluído" )
+    }, next)
+})
+
+
+server.get( '/produto' , (req, res, next) => {
+    const idCat = req.params.idCategoria
+    knex('produto')
+    .join("categoria", "produto.codCategoria", "=" , "categoria.id")
+    .select("produto.id" , "produto.nome", 
+            "produto.preco", "categoria.nome AS cat")
+    .then( (dados) => {
+        if( !dados || dados == "" ){
+            return res.send(
                 new errors.BadRequestError('Produto não encontrado')
+            )
+        }
+        res.send( dados )
+    }, next)
+})
+
+server.put( '/produto/:idProduto' , (req, res, next) => {
+    const idProd = req.params.idProduto
+    knex('produto')
+    .where( 'id' , idProd)
+    .update( req.body )
+    .then( (dados) => {
+        if( !dados ){
+            return res.send(
+                new errors.BadRequestError('Produto não encontrado')
+            )
+        }
+        res.send( "Produto Atualizado" )
+    }, next)
+})
+
+server.post( '/produto' , (req, res, next) => {
+    knex('produto')
+    .insert( req.body )
+    .then( (dados) => {
+        res.send( dados )
+    }, next)
+})
+
+
+server.del( '/produto/:idProduto' , (req, res, next) => {
+    const idProd = req.params.idProduto
+    knex('produto')
+    .where( 'id' , idProd)
+    .delete()
+    .then( (dados) => {
+        if( !dados ){
+            return res.send(
+                new errors.BadRequestError('Categoria não encontrada')
             )
         }
         res.send( "Produto Excluído" )
