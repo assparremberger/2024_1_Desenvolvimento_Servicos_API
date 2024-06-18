@@ -7,7 +7,7 @@ function add(){
         ajax.onreadystatechange = function(){
             if( this.readyState == 4 && this.status == 200){
                 alert("Categoria "+nome+" cadastrada!");
-                buscarProdutos();
+                buscarCategorias();
             }else if(this.readyState == 4){
                 alert( this.status +"\n"+this.responseText );
             }
@@ -15,13 +15,13 @@ function add(){
 
         ajax.open("POST", "http://localhost:8001/categoria", true);
         ajax.setRequestHeader("Content-type" , 
-                            "aplication/x-www-form-urlencoded");
+                            "application/x-www-form-urlencoded");
         ajax.send("nome=" + nome);
     }
 
 }
 
-function buscarProdutos(){
+function buscarCategorias(){
     tabela = document.getElementById("tblCategorias");
 
     ajax = new XMLHttpRequest();
@@ -32,9 +32,9 @@ function buscarProdutos(){
                 if( document.getElementById("c"+ cat.id) == null ){
                     linha = tabela.insertRow(-1);
                     linha.id = "c" + cat.id;
-                    cellId = linha.insertCell( 1 );
-                    cellNome = linha.insertCell( 2 );
-                    cellExcluir = linha.insertCell( 3 );
+                    cellId = linha.insertCell( 0 );
+                    cellNome = linha.insertCell( 1 );
+                    cellExcluir = linha.insertCell( 2 );
 
                     cellId.innerHTML = cat.id;
                     cellNome.innerHTML = cat.nome;
@@ -53,7 +53,7 @@ function excluir( idCat ){
     ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function(){
         if( this.readyState == 4 && this.status == 200){
-            buscarProdutos();
+            location.reload();
         }
     }
     ajax.open("DELETE", "http://localhost:8001/categoria/"+idCat, 

@@ -7,9 +7,19 @@ const server = restify.createServer({
     version : '1.0.0'
 })
 
+const corsMiddleware = require("restify-cors-middleware2");
+
+const cors = corsMiddleware({
+    origins : ['*']
+});
+
 server.use( restify.plugins.acceptParser(server.acceptable) )
 server.use( restify.plugins.queryParser() )
 server.use( restify.plugins.bodyParser() )
+
+server.pre(cors.preflight);
+server.use(cors.actual);
+
 
 server.listen( 8001 , function() {
     console.log("%s executando em %s", server.name, server.url)
